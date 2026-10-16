@@ -1,0 +1,6 @@
+{
+  "name": "immersive-imax-cinema",
+  "private": true,
+  "type": "module",
+  "description": "Optional developer test metadata only; no Node.js runtime required."
+}

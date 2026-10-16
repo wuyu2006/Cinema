@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0c0d0f"><meta name="description" content="走进你的私人巨幕影院。本地影片、真实的第一人称空间、60 秒选座、影院灯光与空间音频，全部在浏览器中发生。">
+  <title>Immersive IMAX Cinema · 你的私人巨幕影院</title>
+  <link rel="icon" href="./assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/main.css"><link rel="stylesheet" href="./css/lobby.css"><link rel="stylesheet" href="./css/cinema.css"><link rel="stylesheet" href="./css/controls.css">
+</head>
+<body class="is-lobby">
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v5a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 4 13 8-13 8Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 4v16M16 4v16"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="m11 4-6 5H2v6h3l6 5ZM15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></symbol>
+    <symbol id="i-muted" viewBox="0 0 24 24"><path d="m11 4-6 5H2v6h3l6 5ZM16 9l6 6m0-6-6 6"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M9 4 10 2h4l1 2 3 2 2 1v4l-2 1v4l-3 2-1 2h-4l-1-2-3-2v-4l-2-1V7l2-1Z"/><circle cx="12" cy="11" r="3"/></symbol>
+    <symbol id="i-fullscreen" viewBox="0 0 24 24"><path d="M3 9V3h6m6 0h6v6M3 15v6h6m6 0h6v-6"/></symbol>
+    <symbol id="i-light" viewBox="0 0 24 24"><path d="M9 19h6m-5 3h4M8 15a6 6 0 1 1 8 0l-1 2H9ZM12 1V0M4 4 2 2m18 2 2-2M2 10H0m24 0h-2"/></symbol>
+    <symbol id="i-seat" viewBox="0 0 24 24"><path d="M6 13V6a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v7M5 11H2v7h20v-7h-3M6 18v4m12-4v4M5 14h14"/></symbol>
+    <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4m-4 8h4M17 8h4m-4 8h4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L20 5"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="m9 15 6-6M7 17l-1 1a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0m2 10a4 4 0 0 0 6 0l5-5a4 4 0 0 0-6-6l-1 1" transform="translate(1 0) scale(.9)"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M20 12H4m6-6-6 6 6 6"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="m12 2 10 5v10l-10 5-10-5V7Zm0 10v10M2 7l10 5 10-5M7 4.5l10 5v4"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></symbol>
+  </defs></svg>
+  <canvas id="world" aria-label="第一人称 3D 影院场景"></canvas>
+  <div class="scene-vignette" aria-hidden="true"></div>
+  <header id="site-header" class="site-header">
+    <a href="#" class="brand" data-action="home" aria-label="返回影院大厅"><span class="brand-mark">i<span>c</span></span><span class="brand-text">IMMERSIVE<span>IMAX CINEMA</span></span></a>
+    <div class="lobby-nav"><span class="nav-step active"><i>01</i> 选择影片</span><span class="nav-line"></span><span class="nav-step"><i>02</i> 入场选座</span><span class="nav-line"></span><span class="nav-step"><i>03</i> 沉浸观影</span></div>
+    <div class="header-actions"><button class="text-button" data-action="help">操作指南 <span class="tiny-key">?</span></button><button class="icon-button" data-action="settings" title="设置" aria-label="设置"><svg><use href="#i-settings"/></svg></button></div>
+  </header>
+  <main id="lobby" class="lobby">
+    <section class="lobby-story">
+      <div class="eyebrow"><span class="small-line"></span> THE CINEMA IS YOURS</div>
+      <h1>好电影，<br>值得一座<span>影院。</span></h1>
+      <p class="lobby-description">把世界留在门外。<br>走进巨幕之下，让每一次播放成为一场观影。</p>
+      <div class="experience-tags"><span>1.43:1 巨幕空间</span><span>沉浸式空间声场</span><span>属于你的座位</span></div>
+      <button class="tour-link" data-action="explore">先参观影厅 <svg><use href="#i-arrow"/></svg></button>
+    </section>
+    <section class="import-panel" aria-labelledby="import-title">
+      <div class="panel-eyebrow"><span class="status-dot"></span> YOUR PRIVATE SCREENING <span class="ticket-number">NO. 001</span></div>
+      <h2 id="import-title">今晚，看点什么？</h2><p class="panel-description">带上你的影片，剩下的交给影院。</p>
+      <div class="source-tabs" role="tablist" aria-label="影片来源"><button id="tab-local" role="tab" aria-selected="true" aria-controls="source-local" class="active" data-source="local"><svg><use href="#i-film"/></svg> 本地影片</button><button id="tab-url" role="tab" aria-selected="false" aria-controls="source-url" data-source="url"><svg><use href="#i-link"/></svg> 视频直链</button></div>
+      <div id="source-local" role="tabpanel" aria-labelledby="tab-local">
+        <label class="file-drop" id="file-drop" tabindex="0" role="button" aria-label="选择本地视频">
+          <input id="video-file" type="file" accept="video/*,.mp4,.webm,.ogg,.ogv,.m4v,.mov" hidden>
+          <span class="upload-glyph"><svg><use href="#i-upload"/></svg></span><strong>选择本地视频 <span>↗</span></strong><small>或将影片拖放至此</small><span class="format-label">MP4 · WEBM · OGG</span>
+        </label>
+        <p class="privacy-note"><svg><use href="#i-check"/></svg> 影片仅在你的设备上播放，无需上传。</p><button class="demo-link text-button" data-action="demo">没有影片？使用内置试映短片 <span>↗</span></button>
+      </div>
+      <form id="source-url" role="tabpanel" aria-labelledby="tab-url" hidden><label for="video-url" class="field-label">视频 URL</label><div class="url-field"><input id="video-url" type="url" placeholder="https://example.com/movie.mp4" autocomplete="off"><button class="icon-button" type="submit" title="加载视频" aria-label="加载视频"><svg><use href="#i-arrow"/></svg></button></div><p class="privacy-note url-note">需联网并允许 CORS 的视频直链。离线时请选择本地影片。</p></form>
+      <div id="film-info" class="film-info" hidden><div class="film-heading"><svg><use href="#i-film"/></svg><strong id="film-name"></strong><span class="ready-label">已准备</span></div><div class="film-stats"><span id="film-resolution"></span><span id="film-duration"></span><span id="film-aspect"></span></div><p id="film-audio">音频声道将在首次播放时检测</p></div>
+      <div id="import-status" class="inline-status" role="status" hidden></div>
+      <button id="enter-cinema" class="primary-button enter-button" data-action="enter" disabled><span>进入影厅</span><svg><use href="#i-arrow"/></svg></button>
+      <div class="entry-note"><span class="mini-clock"></span><span id="entry-note-text">开场前，留给你 60 秒寻找心仪的座位</span></div>
+      <div class="countdown-setting">
+        <input id="countdown-range" type="range" min="0" max="180" step="5" value="60" aria-label="选座等待时间，0 到 180 秒">
+        <div class="countdown-scale" aria-hidden="true"><span>0 秒 · 立即安排</span><span>90 秒</span><span>180 秒</span></div>
+      </div>
+    </section>
+    <div class="lobby-scene-caption"><span class="caption-line"></span><span>AUDITORIUM 01<br><strong>THE IMMERSIVE EXPERIENCE</strong></span></div>
+  </main>
+  <footer id="lobby-footer" class="lobby-footer"><div><span class="status-dot"></span><span id="network-status">离线就绪</span><span class="footer-separator">/</span><span>本地播放 · 私人空间</span></div><button data-action="assets" class="text-button"><svg><use href="#i-box"/></svg> 资源管理 <span class="tiny-arrow">↗</span></button><span class="footer-signature">A BIGGER WAY TO FEEL.</span></footer>
+  <section id="cinema-hud" class="cinema-hud" hidden>
+    <div class="cinema-top"><button class="cinema-brand text-button" data-action="home"><svg><use href="#i-back"/></svg> IMMERSIVE <span>01</span></button><div id="countdown" class="countdown"><span class="status-dot"></span><div><span id="phase-label">请选择您的座位</span><small id="phase-subtitle">PLEASE FIND YOUR SEAT</small></div><strong id="countdown-value">01:00</strong></div><button class="icon-button" data-action="settings" title="设置" aria-label="设置"><svg><use href="#i-settings"/></svg></button></div>
+    <div id="reticle" class="reticle" hidden></div>
+    <div id="seat-prompt" class="seat-prompt" hidden><span id="nearby-seat"></span><button data-action="sit"><kbd>E</kbd> 坐下</button></div>
+    <div id="cinema-status" class="cinema-status"><svg><use href="#i-seat"/></svg><span id="current-seat">尚未入座</span><button data-action="seatmap">选择座位</button><button id="leave-seat" data-action="leave" hidden>离开座位</button></div>
+    <div class="cinema-shortcuts"><kbd>W A S D</kbd> 移动 <span>·</span> <kbd>R</kbd> 最佳位置 <span>·</span> <kbd>~</kbd> 锁定/解锁鼠标 <span>·</span> <kbd>ESC</kbd> 释放鼠标</div>
+    <div id="touch-controls" class="touch-controls"><button data-move="KeyW" aria-label="向前移动">↑</button><div><button data-move="KeyA" aria-label="向左移动">←</button><button data-move="KeyS" aria-label="向后移动">↓</button><button data-move="KeyD" aria-label="向右移动">→</button></div></div>
+    <div id="paused-label" class="paused-label" hidden>PAUSED<span>时间，暂且停在这里。</span></div>
+    <pre id="audio-debug" class="audio-debug" hidden></pre>
+  </section>
+  <div id="controls-zone" class="controls-zone" hidden></div>
+  <section id="control-bar" class="control-bar" aria-label="影片播放控制" hidden>
+    <div class="control-progress"><input id="seek" type="range" min="0" max="1000" value="0" step="1" aria-label="影片播放进度"></div>
+    <div class="control-row"><button id="play-button" class="icon-button" data-action="play" title="播放 / 暂停（空格）" aria-label="播放或暂停"><svg><use href="#i-play"/></svg></button><span class="time-display"><span id="current-time">00:00</span><span>/</span><span id="total-time">00:00</span></span><span id="playing-title" class="playing-title">IMMERSIVE CINEMA</span><div class="volume-controls"><button id="mute-button" class="icon-button" data-action="mute" title="静音（M）" aria-label="静音"><svg><use href="#i-volume"/></svg></button><input id="volume" type="range" min="0" max="1" step=".01" value=".8" aria-label="主音量"></div><span class="control-divider"></span><button class="icon-button" data-action="light" title="灯光模式（L）" aria-label="灯光模式"><svg><use href="#i-light"/></svg></button><button class="icon-button" data-action="settings" title="设置" aria-label="设置"><svg><use href="#i-settings"/></svg></button><button class="icon-button" data-action="fullscreen" title="全屏（F）" aria-label="全屏"><svg><use href="#i-fullscreen"/></svg></button></div>
+  </section>
+  <div id="lock-overlay" class="lock-overlay" hidden><div class="lock-card"><span class="eyebrow">YOU ARE HERE</span><h2 id="lock-title">准备好，走进电影。</h2><p id="lock-description">点击后锁定鼠标，用视线探索影院。<br>按 ESC 随时释放鼠标。</p><button class="primary-button" data-action="lock">进入观影模式 <svg><use href="#i-arrow"/></svg></button><button class="text-button" data-action="dismiss-lock">使用拖动视角</button></div></div>
+  <dialog id="help-dialog" class="modal help-modal"><div class="modal-header"><span class="eyebrow">A LITTLE BEFORE THE LIGHTS GO DOWN</span><button class="icon-button" data-close aria-label="关闭操作指南"><svg><use href="#i-close"/></svg></button></div><h2>欢迎来到你的私人影院。</h2><p class="muted">没有拥挤，只有一块巨幕和一段属于你的时间。</p><div class="shortcut-grid"><div><kbd>鼠标</kbd><span>环顾影院</span></div><div><kbd>W A S D</kbd><span>自由移动</span></div><div><kbd>E</kbd><span>准星对准座位后坐下，再按一次起身</span></div><div><kbd>R</kbd><span>平滑前往最佳座位</span></div><div><kbd>SPACE</kbd><span>播放 / 暂停</span></div><div><kbd>← →</kbd><span>快退 / 快进 5 秒</span></div><div><kbd>↑ ↓</kbd><span>调节音量</span></div><div><kbd>M / F / L</kbd><span>静音 / 全屏 / 灯光</span></div><div><kbd>~</kbd><span>锁定 / 解锁鼠标指针</span></div><div><kbd>ESC</kbd><span>释放鼠标</span></div><div><kbd>?</kbd><span>操作指南</span></div></div><p class="help-note">入场后有一段选座时间（默认 <strong>60 秒</strong>，可在入场前于大厅面板或「设置 → 影院」调到 0–180 秒）。时间到时影片会<strong>直接从你现在的位置</strong>开始播放，不会把你挪到别处；想坐下时用准星对准座位按 E，按 R 可以让影院带你去评分最佳的位置。</p><button id="help-start" class="primary-button" data-action="help-start">明白了 <svg><use href="#i-arrow"/></svg></button></dialog>
+  <dialog id="start-dialog" class="modal start-modal"><span class="eyebrow">THE LIGHTS ARE ABOUT TO GO DOWN</span><div class="start-orbit" aria-hidden="true"><svg><use href="#i-play"/></svg></div><h2>好戏，即将开始。</h2><p id="start-description" class="muted">浏览器暂未允许自动播放。<br>点一下这里即可继续，之后不会再次询问。</p><button id="start-movie" class="primary-button" data-action="start">开始观影 <svg><use href="#i-play"/></svg></button><button class="text-button" data-action="choose-movie">选择另一部影片</button><button class="text-button" data-action="back-to-seating">继续参观影厅</button></dialog>
+  <dialog id="finished-dialog" class="modal finished-modal"><span class="eyebrow">UNTIL THE NEXT STORY</span><h2>故事落幕，<br>余韵还在。</h2><p class="muted">THANK YOU FOR WATCHING<br>感谢你的观影。</p><button class="primary-button" data-action="replay">重新观看 <svg><use href="#i-play"/></svg></button><button class="secondary-button" data-action="home">返回影院大厅</button></dialog>
+  <dialog id="settings-dialog" class="modal settings-modal"><div class="modal-header"><div><span class="eyebrow">MAKE YOURSELF AT HOME</span><h2>影院设置</h2></div><button class="icon-button" data-close aria-label="关闭设置"><svg><use href="#i-close"/></svg></button></div><div class="settings-tabs" role="tablist"><button class="active" data-settings-tab="picture" role="tab" aria-selected="true">画面</button><button data-settings-tab="controls" role="tab" aria-selected="false">操作</button><button data-settings-tab="audio" role="tab" aria-selected="false">声音</button><button data-settings-tab="cinema" role="tab" aria-selected="false">影院</button></div><div id="settings-content"></div><div class="settings-footer"><span id="performance-status">正在检测设备</span><button class="text-button" data-action="reset-settings">恢复默认</button></div></dialog>
+  <dialog id="seatmap-dialog" class="modal seatmap-modal"><div class="modal-header"><div><span class="eyebrow">FIND YOUR PERSPECTIVE</span><h2>挑一个喜欢的角度。</h2></div><button class="icon-button" data-close aria-label="关闭选座"><svg><use href="#i-close"/></svg></button></div><p class="muted">点击空座，影院将带你沿过道入座。</p><div class="map-screen">IMAX SCREEN</div><div id="seat-map" class="seat-map" aria-label="影院座位图"></div><div class="map-legend"><span><i></i> 可选</span><span><i class="recommended"></i> 推荐</span><span><i class="selected"></i> 已选择</span></div><button class="secondary-button" data-action="best-seat">为我安排最佳位置 <svg><use href="#i-seat"/></svg></button></dialog>
+  <dialog id="assets-dialog" class="modal assets-modal"><div class="modal-header"><div><span class="eyebrow">YOUR CINEMA, YOUR DETAILS</span><h2>3D 资源管理器</h2></div><button class="icon-button" data-close aria-label="关闭资源管理"><svg><use href="#i-close"/></svg></button></div><p class="muted">下载一次，离线常在。推荐嵌入纹理的 GLB，单个资源含依赖不超过 20 MB。</p><form id="model-url-form" class="asset-url-form"><input id="model-url" type="url" placeholder="https://example.com/cinema-seat.glb" aria-label="模型 URL" required><button class="secondary-button" type="submit">下载并导入</button></form><div class="asset-import-buttons"><label class="secondary-button">从本地导入模型<input id="model-file" type="file" accept=".glb,.gltf,.bin,.png,.jpg,.jpeg,.webp,.avif,.ktx2" multiple hidden></label><label class="text-button">选择 GLTF 文件夹<input id="model-folder" type="file" webkitdirectory multiple hidden></label></div><div id="model-progress" class="model-progress" hidden><div><span id="model-progress-text"></span><button id="cancel-download" class="text-button" type="button">取消</button></div><progress id="model-progress-bar" max="100" value="0"></progress></div><p id="asset-message" class="inline-status" role="status" hidden></p><div class="asset-list-heading"><strong>本地模型</strong><span id="storage-usage">0.0 MB / 200 MB</span></div><div id="asset-list" class="asset-list"></div><details class="asset-guidance"><summary>GLTF 依赖、压缩格式与跨域说明</summary><p>GLTF 需包含 BIN 与所有纹理。可选中全部依赖，或选择完整文件夹。URL 依赖会一同下载缓存。仅解析 GLB / GLTF，不执行脚本。Draco、Meshopt、KTX2 解码器已内置；KTX2 会按 GPU 能力转码，失败时保留默认模型。跨域失败请改用允许 CORS 的 URL 或本地导入。建议三角形 &lt;100,000，Mesh &lt;30，材质 &lt;15，纹理 ≤2048。</p></details><div class="asset-bottom"><span id="resource-status">Three.js · 场景 · 材质 · 环境音：全部本地</span><button id="clear-models" class="text-button danger">清理模型缓存</button></div></dialog>
+  <dialog id="model-preview-dialog" class="modal preview-modal"><div class="modal-header"><div><span class="eyebrow">BEFORE IT FINDS ITS PLACE</span><h2 id="preview-name">模型预览</h2></div><button class="icon-button" data-close aria-label="取消预览"><svg><use href="#i-close"/></svg></button></div><canvas id="model-preview-canvas" aria-label="模型预览，可拖动旋转"></canvas><p class="preview-hint">拖动旋转 · 自动适配真实影院尺寸</p><div id="model-statistics" class="model-statistics"></div><div id="model-warnings" class="model-warnings"></div><div class="preview-actions"><button id="save-model" class="primary-button">保存到本地 <svg><use href="#i-check"/></svg></button><button class="secondary-button" data-close>取消</button></div></dialog>
+  <dialog id="confirm-dialog" class="modal confirm-modal"><span class="eyebrow">LOCAL RESOURCES</span><h2 id="confirm-title">删除本地模型？</h2><p id="confirm-message" class="muted"></p><div class="preview-actions"><button id="confirm-ok" class="primary-button">删除</button><button id="confirm-cancel" class="secondary-button">取消</button></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <div id="boot" class="boot"><div class="boot-mark">ic</div><span>正在打开你的影院</span><div class="boot-line"></div></div>
+  <noscript><div class="fatal-error">此影院需要启用 JavaScript 和 WebGL2。请启用后重新打开。</div></noscript>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
