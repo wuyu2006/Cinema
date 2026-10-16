@@ -19,9 +19,10 @@ export const RESOURCE_CONFIG = Object.freeze({
 export const QUALITY = Object.freeze({
   // screenLights：银幕溢光用几盏灯近似整块银幕的面积光。屏幕是熄灯后影厅里唯一的光源，
   // 因此 LOW 也保留一盏，否则整间厅会全黑；画质越高铺得越均匀。
-  LOW: { dpr: 1, shadows: false, glow: true, ssao: false, bloom: false, post: false, screenLights: 1 },
-  MEDIUM: { dpr: 1.5, shadows: true, glow: true, ssao: false, bloom: false, post: true, screenLights: 3 },
-  HIGH: { dpr: 2, shadows: true, glow: true, ssao: true, bloom: true, post: true, screenLights: 5 }
+  // msaa / depthOfField：后处理链上的多重采样与景深。LOW 直接渲染，靠 renderer 自带的 antialias。
+  LOW: { dpr: 1, shadows: false, glow: true, ssao: false, bloom: false, post: false, screenLights: 1, msaa: false, depthOfField: false },
+  MEDIUM: { dpr: 1.5, shadows: true, glow: true, ssao: false, bloom: false, post: true, screenLights: 3, msaa: true, depthOfField: true },
+  HIGH: { dpr: 2, shadows: true, glow: true, ssao: true, bloom: true, post: true, screenLights: 5, msaa: true, depthOfField: true }
 });
 // 入场后的选座等待时间，可在 0–180 秒之间自由设置；0 表示入场后立即由影院安排座位。
 export const COUNTDOWN_RANGE = Object.freeze({ min: 0, max: 180, step: 5, default: 60 });
@@ -31,7 +32,9 @@ export const DEFAULT_SETTINGS = {
   bass: 1, spatial: true, channels: 'auto', channelLayout:'standard', fit: 'contain',
   glow: true, ssao: true, bloom: true, shadows: true,
   speakers: false, seatNumbers: false, fullLight: false, audioDebug: false,
-  countdown: COUNTDOWN_RANGE.default
+  countdown: COUNTDOWN_RANGE.default,
+  // 景深：准星指向的位置自动对焦；强度同时控制虚化半径与景深范围。
+  depthOfField: true, dofStrength: .55
 };
 export const LIGHTING_PRESETS = Object.freeze({
   ENTRY: { ceiling: .7, wall: .7, step: 1, exit: .2, screen: 0, ambient: .6 },

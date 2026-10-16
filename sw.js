@@ -1,6 +1,6 @@
 // 仅缓存此项目的静态壳；绝不缓存或代理影片 URL、外部模型或跨域请求。
 const PREFIX='ic-shell:'+new URL(self.registration.scope).pathname+'|';
-const CACHE=PREFIX+'8b27d05ec6a1';
+const CACHE=PREFIX+'c06f31a8d24e';
 const FILES=[
   "./assets/first-light.mp4",
   "./assets/icons/favicon.svg",
@@ -20,6 +20,7 @@ const FILES=[
   "./js/core/CinemaApp.js",
   "./js/core/CinemaStateManager.js",
   "./js/core/Config.js",
+  "./js/core/DepthOfField.js",
   "./js/core/Renderer.js",
   "./js/lighting/CinemaLightingManager.js",
   "./js/lighting/ScreenGlow.js",

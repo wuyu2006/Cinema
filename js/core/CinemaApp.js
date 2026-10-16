@@ -297,12 +297,13 @@ export class CinemaApp {
   async changeSetting(key){
     saveSettings(this.settings);
     if(key.startsWith('model_')){await this.replaceModel(key.slice(6),this.settings[key]);return;}
-    if(['quality','renderScale','ssao','shadows','bloom'].includes(key))this.rendering.configure(this.cinema);
+    if(['quality','renderScale','ssao','shadows','bloom','depthOfField'].includes(key))this.rendering.configure(this.cinema);
     if(['spatial','channels','channelLayout','bass'].includes(key))this.audio.buildRoutes();
     this.applySettings(false);
   }
   applySettings(configure=true){
     if(configure)this.rendering.configure(this.cinema);
+    this.rendering.setDepthOfFieldStrength(this.settings.dofStrength);
     this.setCountdown(this.settings.countdown,false);
     this.cinema.screen.setFit(this.settings.fit);this.cinema.speakers.labels.visible=this.settings.speakers;this.cinema.seats.numbers.visible=this.settings.seatNumbers;
     this.lighting.setFull(this.settings.fullLight);this.glow.enabled=this.settings.glow&&this.rendering.preset.glow;this.glow.setCount(this.rendering.preset.screenLights);
